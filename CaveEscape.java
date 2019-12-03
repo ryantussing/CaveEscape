@@ -19,11 +19,11 @@ public class CaveEscape {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame j = new JFrame("Blobby Game");
+        JFrame j = new JFrame("Cave Escape");
         World c = new World();
         j.add(c);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setSize(1200, 700);
+        j.setSize(1180, 720);
         j.setVisible(true);
         j.setLocationRelativeTo(null);
         j.addKeyListener(new KeyAdapter() {
