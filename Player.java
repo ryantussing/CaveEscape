@@ -34,7 +34,7 @@ public class Player {
         this.width = 56;
         this.height = 56;
         this.color = Color.CYAN;
-        this.score = 9;
+        this.score = 0;
         this.key = false;
         this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
         this.ii = new ImageIcon (getClass().getResource("Sans.png"));
