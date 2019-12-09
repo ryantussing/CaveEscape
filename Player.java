@@ -18,10 +18,9 @@ import javax.swing.ImageIcon;
  */
 public class Player {
     
-    private int height, width, x, y, vx, vy, hp, score;
+    private int height, width, x, y, vx, vy, hp, score, deaths, map, SPEED;
     private Rectangle bounds;
     private Color color;
-    private final int SPEED = 10;
     private boolean alive;
     private boolean key;
     private Image img;
@@ -34,7 +33,10 @@ public class Player {
         this.width = 56;
         this.height = 56;
         this.color = Color.CYAN;
-        this.score = 0;
+        this.SPEED = 10;
+        this.score = 8;
+        this.deaths = 0;
+        this.map = 1;
         this.key = false;
         this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
         this.ii = new ImageIcon (getClass().getResource("Sans.png"));
@@ -84,6 +86,30 @@ public class Player {
      
     // GETTERS AND SETTERS
 
+    public int getSPEED() {
+        return SPEED;
+    }
+
+    public void setSPEED(int SPEED) {
+        this.SPEED = SPEED;
+    }
+
+    public int getMap() {
+        return map;
+    }
+
+    public void setMap(int map) {
+        this.map = map;
+    }
+    
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+    
     public int getHeight() {
         return height;
     }

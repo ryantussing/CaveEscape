@@ -13,13 +13,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.FontMetrics;
 import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /*      NOTES
 
-WORLD ONE ASSOCIATES TO WORLD TWO BASED ON SCORE. SCORE ALWAYS EXISTS BUT ISN'T ALWAYS DISPLAYED.
+SCORE IS SET TO 8
 
 TO DO:
-death counter
+floor layout is set up --> implement
 map randomly changes? or shifting windows?
 
 */
@@ -32,11 +35,31 @@ public class World extends JPanel{
     
     private Timer timer;
     private int rand = createRandom();
+    private Rectangle bounds;
+    private Image img;
+    private ImageIcon ii;
+    private int quad;
     // BORDERS
     private Border top;
+    private Border topq3;
+    private Border topq4;
+    private Border topq2;
+    private Border topq1;
     private Border bottom;
+    private Border bottomq3;
+    private Border bottomq4;
+    private Border bottomq2;
+    private Border bottomq1;
     private Border left;
+    private Border leftq3;
+    private Border leftq4;
+    private Border leftq2;
+    private Border leftq1;
     private Border right;
+    private Border rightq3;
+    private Border rightq4;
+    private Border rightq2;
+    private Border rightq1;
     // OBJECTS
     private Player player;
     private Key key;
@@ -91,39 +114,99 @@ public class World extends JPanel{
     private Border wall22;
     private Border wall23;
     private Border wall24;
+    private Border wall25;
+    private Border wall26;
+    private Border wall27;
+    private Border wall28;
+    private Border wall29;
+    private Border wall30;
+    private Border wall31;
+    private Border wall32;
+    private Border wall33;
+    private Border wall34;
+    private Border wall35;
+    private Border wall36;
+    private Border wall37;
+    private Border wall38;
+    private Border wall39;
+    private Border wall40;
+    private Border wall41;
+    private Border wall42;
+    private Border wall43;
+    private Border wall44;
+    private Border wall45;
+    private Border wall46;
+    private Border wall47;
+    private Border wall48;
+    private Border wall49;
     
     public World() {
         super();
         // BORDERS
-        top = new Border(1, 1, 1080, 3, Color.BLACK);
-        bottom = new Border(1, 16, 1080, 3, Color.BLACK);
-        left = new Border(1, 1, 3, 600, Color.BLACK);
-        right = new Border(28, 1, 3, 603, Color.BLACK);
+            // MAIN
+            top = new Border(1, 1, 1080, 3, Color.BLACK);
+            bottom = new Border(1, 16, 1080, 3, Color.BLACK);
+            left = new Border(1, 1, 3, 600, Color.BLACK);
+            right = new Border(28, 1, 3, 603, Color.BLACK);
+            //QUAD 3
+            bottomq3 = new Border(1, 16, 1125, 3, new Color (49, 51, 53));
+            leftq3 = new Border(1, 0, 3, 640, new Color (49, 51, 53));
+            rightq3 = new Border (29, 0, 3, 640, new Color (255, 255, 255, 0));
+            topq3 = new Border (1, 0, 1125, 3, new Color (255, 255, 255, 0));
+            //QUAD 4
+            bottomq4 = new Border (0, 16, 1123, 3, new Color (49, 51, 53));
+            leftq4 = new Border (0, 0, 3, 640, new Color (255, 255, 255, 0));
+            topq4 = new Border (0, 0, 1125, 3, new Color (255, 255, 255, 0));
+            rightq4 = new Border (28, 0, 3, 640, new Color (49, 51, 53));
+            //QUAD 2
+            leftq2 = new Border (1, 1, 3, 640, new Color(49, 51, 53));
+            rightq2 = new Border (29, 1, 3, 640, new Color (255, 255, 255, 0));
+            topq2 = new Border (1, 1, 1125, 3, new Color(49, 51, 53));
+            bottomq2 = new Border(1, 17, 1125, 3, new Color (255, 255, 255, 0));
+            // QUAD 1
+            bottomq1 = new Border (0, 17, 1125, 3, new Color (255, 255, 255, 0));
+            rightq1 = new Border (28, 1, 3, 640, new Color (49, 51, 53));
+            leftq1 = new Border (0, 1, 3, 640, new Color (255, 255, 255, 0));
+            topq1 = new Border (0, 1, 1123, 3, new Color(49, 51, 53));
         // WALLS
-        wall = new Border(4, 10, 2, 240, Color.BLACK);
-        wall2 = new Border(4, 10, 120, 2, Color.BLACK);
-        wall3 = new Border(7, 10, 2, 120, Color.BLACK);
-        wall4 = new Border(10, 7, 2, 240, Color.BLACK);
-        wall5 = new Border(4, 7, 120, 2, Color.BLACK);
-        wall6 = new Border(7, 4, 2, 120, Color.BLACK);
-        wall7 = new Border(10, 7, 120, 2, Color.BLACK);
-        wall8 = new Border(1, 7, 120, 2, Color.BLACK);
-        wall9 = new Border(4, 4, 120, 2, Color.BLACK);
-        wall10 = new Border(10, 1, 2, 120, Color.BLACK);
-        wall11 = new Border(13, 4, 2, 120, Color.BLACK);
-        wall12 = new Border(13, 10, 2, 240, Color.BLACK);
-        wall13 = new Border(16, 10, 2, 120, Color.BLACK);
-        wall14 = new Border(19, 10, 2, 120, Color.BLACK);
-        wall15 = new Border(16, 10, 120, 2, Color.BLACK);
-        wall16 = new Border(22, 7, 2, 240, Color.BLACK);
-        wall17 = new Border(25, 7, 2, 120, Color.BLACK);
-        wall18 = new Border(25, 7, 120, 2, Color.BLACK);
-        wall19 = new Border(22, 13, 240, 2, Color.BLACK);
-        wall20 = new Border(16, 7, 240, 2, Color.BLACK);
-        wall21 = new Border(16, 4, 2, 120, Color.BLACK);
-        wall22 = new Border(22, 4, 2, 120, Color.BLACK);
-        wall23 = new Border(19, 4, 120, 2, Color.BLACK);
-        wall24 = new Border(25, 1, 2, 120, Color.BLACK);
+            // WORLD 1
+                wall = new Border(4, 10, 2, 240, Color.BLACK);
+                wall2 = new Border(4, 10, 120, 2, Color.BLACK);
+                wall3 = new Border(7, 10, 2, 120, Color.BLACK);
+                wall4 = new Border(10, 7, 2, 240, Color.BLACK);
+                wall5 = new Border(4, 7, 120, 2, Color.BLACK);
+                wall6 = new Border(7, 4, 2, 120, Color.BLACK);
+                wall7 = new Border(10, 7, 120, 2, Color.BLACK);
+                wall8 = new Border(1, 7, 120, 2, Color.BLACK);
+                wall9 = new Border(4, 4, 120, 2, Color.BLACK);
+                wall10 = new Border(10, 1, 2, 120, Color.BLACK);
+                wall11 = new Border(13, 4, 2, 120, Color.BLACK);
+                wall12 = new Border(13, 10, 2, 240, Color.BLACK);
+                wall13 = new Border(16, 10, 2, 120, Color.BLACK);
+                wall14 = new Border(19, 10, 2, 120, Color.BLACK);
+                wall15 = new Border(16, 10, 120, 2, Color.BLACK);
+                wall16 = new Border(22, 7, 2, 240, Color.BLACK);
+                wall17 = new Border(25, 7, 2, 120, Color.BLACK);
+                wall18 = new Border(25, 7, 120, 2, Color.BLACK);
+                wall19 = new Border(22, 13, 240, 2, Color.BLACK);
+                wall20 = new Border(16, 7, 240, 2, Color.BLACK);
+                wall21 = new Border(16, 4, 2, 120, Color.BLACK);
+                wall22 = new Border(22, 4, 2, 120, Color.BLACK);
+                wall23 = new Border(19, 4, 120, 2, Color.BLACK);
+                wall24 = new Border(25, 1, 2, 120, Color.BLACK);
+            // WORLD 2
+                // QUAD 3       *bottom border is 16
+                wall25 = new Border (4, 13, 120, 2, Color.BLACK);
+                wall26 = new Border (7, 13, 122, 2, Color.BLACK);
+                wall27 = new Border (13, 13, 120, 2, Color.BLACK);
+                wall28 = new Border (10, 10, 2, 120, Color.BLACK);
+                wall29 = new Border (13, 10, 2, 120, Color.BLACK);
+                wall30 = new Border (1, 10, 120, 2, Color.BLACK);
+                wall31 = new Border (4, 10, 120, 2, Color.BLACK);
+                wall32 = new Border (4, 4, 2, 120, Color.BLACK);
+                wall33 = new Border (7, 4, 2, 120, Color.BLACK);
+                wall34 = new Border (7, 7, 120, 2, Color.BLACK);
+                wall35 = new Border (10, 7, 2, 120, Color.BLACK);
         // DOORS
         door = new Door (1030, 310);
         door2 = new Door (190, 190);
@@ -140,27 +223,15 @@ public class World extends JPanel{
         // OTHERS
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/24);
+        quad = 0;
+        this.setSize(1200, 720);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if ( player.getScore() > 8 ) {
-            
-            this.setBackground(Color.BLACK);
-            player.draw(g);
-            
-            g.setColor(Color.WHITE);
-                Font a = new Font ( "VIVALDI ITALIC", Font.BOLD, 52);
-                g.setFont(a);
-                g.drawString ("CONGRAGULATIONS", 181, 90); 
-                g.setColor(new Color( 255 , 0 , 0 , 130));
-                g.drawString ("CONGRAGULATIONS", 181, 120);
-                
-        }
-        
-        if ( player.getScore() >= 0 && player.getScore() <= 8) {
+        if ( player.getMap() == 1 ) {
             this.setBackground (new Color (66, 165, 245));
 
             if (player.isAlive()){
@@ -988,7 +1059,6 @@ public class World extends JPanel{
                         g.fillRect ( 800 , 170 , 20 , 20 );
                 }
             // OBJECTS
-            player.draw(g);
             if ( player.getScore() == 8) {
                 exitdoor.draw(g);
                 if (!player.isKey()) {
@@ -1072,6 +1142,7 @@ public class World extends JPanel{
                     deight = true;
                 }
             }
+            player.draw(g);
             // BORDERS
             top.draw(g);
             bottom.draw(g);
@@ -1108,8 +1179,93 @@ public class World extends JPanel{
                 Font a = new Font ( "SERIF", Font.BOLD, 20);
                 g.setFont(a);
                 g.drawString ("S C O R E  :  " + player.getScore(), 40, 28);
+                g.drawString ("D E A T H S : " + player.getDeaths(), 220, 28);
             }
         }
+        
+        if ( player.getMap() == 2 ) {
+            
+            this.setBackground( Color.LIGHT_GRAY );
+            
+            if (quad == 3) {
+                
+                g.setColor(new Color (253, 253, 150));
+                g.fillRect(40 , 0 , 1125 , 640);
+                // BORDERS
+                bottomq3.draw(g);
+                leftq3.draw(g);
+                topq3.draw(g);
+                rightq3.draw(g); 
+                // WALLS
+                wall25.draw(g);
+                wall26.draw(g);
+                wall27.draw(g);
+                wall28.draw(g);
+                wall29.draw(g);
+                wall30.draw(g);
+                wall31.draw(g);
+                wall32.draw(g);
+                wall33.draw(g);
+                wall34.draw(g);
+                wall35.draw(g);
+                // TEXT
+                g.setColor(Color.WHITE);
+                Font a = new Font ( "SERIF", Font.BOLD, 20);
+                g.setFont(a);
+                g.drawString ("S C O R E  :  " + player.getScore(), 40, 668);
+                g.drawString ("D E A T H S : " + player.getDeaths(), 220, 668);
+                
+            }
+            if (quad == 4) {
+                g.setColor(new Color (253, 253, 150));
+                g.fillRect(0 , 0 , 1123 , 640);
+                bottomq4.draw(g);
+                leftq4.draw(g);
+                topq4.draw(g);
+                rightq4.draw(g);
+                
+                g.setColor(Color.WHITE);
+                Font a = new Font ( "SERIF", Font.BOLD, 20);
+                g.setFont(a);
+                g.drawString ("S C O R E  :  " + player.getScore(), 812, 668);
+                g.drawString ("D E A T H S : " + player.getDeaths(), 992, 668);
+                
+            }
+            if (quad == 2) {
+                g.setColor(new Color (253, 253, 150));
+                g.fillRect(40 , 40 , 1125 , 640);
+                bottomq2.draw(g);
+                leftq2.draw(g);
+                topq2.draw(g);
+                rightq2.draw(g);
+                
+                g.setColor(Color.WHITE);
+                Font a = new Font ( "SERIF", Font.BOLD, 20);
+                g.setFont(a);
+                g.drawString ("S C O R E  :  " + player.getScore(), 40, 28);
+                g.drawString ("D E A T H S : " + player.getDeaths(), 220, 28);
+                
+            }
+            if (quad == 1) {
+                g.setColor(new Color (253, 253, 150));
+                g.fillRect(0 , 40 , 1123 , 640);
+                bottomq1.draw(g);
+                leftq1.draw(g);
+                topq1.draw(g);
+                rightq1.draw(g);
+                
+                g.setColor(Color.WHITE);
+                Font a = new Font ( "SERIF", Font.BOLD, 20);
+                g.setFont(a);
+                g.drawString ("S C O R E  :  " + player.getScore(), 812, 28);
+                g.drawString ("D E A T H S : " + player.getDeaths(), 992, 28);
+                
+            }
+            
+            player.draw(g);
+            
+        }
+        
     }
 
     private class ScheduleTask extends TimerTask {
@@ -1139,6 +1295,9 @@ public class World extends JPanel{
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             player.move("down");
         }
+        else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            player.setSPEED(30);
+        }
     }
 
     public void keyReleased(KeyEvent e) {
@@ -1156,122 +1315,153 @@ public class World extends JPanel{
             
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             player.stopVert();
-        }        
+        }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            player.setSPEED(10);
+        }
     }
     
     public void checkCollisions(){
-        if ( player.getScore() >= 0 && player.getScore() <= 8) {
+        if ( player.getMap() == 1 ) {
             if (player.getBounds().intersects(top.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(bottom.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(left.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(right.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall2.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall3.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall4.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall5.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall6.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall7.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall8.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall9.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall10.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall11.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall12.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall13.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall14.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall15.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall16.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall17.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall18.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall19.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall20.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall21.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall22.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall23.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(wall24.getBounds())){
                 player.setX(552);
                 player.setY(312);
+                player.setDeaths(player.getDeaths() + 1);
             }
             if (player.getBounds().intersects(door.getBounds()) && (done == true) ){
                 player.setX(552);
@@ -1341,8 +1531,83 @@ public class World extends JPanel{
                 player.setKey(true);
             }
             if ((player.isKey()) && (player.getBounds().intersects(exitdoor.getBounds()))) {
+                player.setX(72);
+                player.setY(552);
                 player.setKey(false);
-                player.setScore(player.getScore() + 1);
+                player.setScore(0);
+                player.setMap(2);
+                quad = 3;
+            }
+        }
+        if (player.getMap() == 2) {
+            if (quad == 3) {
+                if (player.getBounds().intersects(leftq3.getBounds())) {
+                    player.setX(72); player.setY(552);
+                }
+                if (player.getBounds().intersects(bottomq3.getBounds())) {
+                    player.setX(72); player.setY(552);
+                }
+                if (player.getBounds().intersects(rightq3.getBounds())) {
+                    player.setBounds(new Rectangle (32, player.getY(), player.getWidth(), player.getHeight())); 
+                    player.setX(32);
+                    quad = 4;
+                }
+                if (player.getBounds().intersects(topq3.getBounds())) {
+                    player.setBounds(new Rectangle (player.getX(), 592, player.getWidth(), player.getHeight()));
+                    player.setY(592);
+                    quad = 2;
+                }
+            }
+            if (quad == 4) {
+                if (player.getBounds().intersects(leftq4.getBounds())) {
+                    player.setX(1076);
+                    quad = 3;
+                }
+                if (player.getBounds().intersects(bottomq4.getBounds())) {
+                    player.setX(1034); player.setY(552);
+                }
+                if (player.getBounds().intersects(rightq4.getBounds())) {
+                    player.setX(1034); player.setY(552);
+                }
+                if (player.getBounds().intersects(topq4.getBounds())) {
+                    player.setBounds(new Rectangle (player.getX(), 592, player.getWidth(), player.getHeight()));
+                    player.setY(592);
+                    quad = 1;
+                }
+            }
+            if (quad == 2) {
+                if (player.getBounds().intersects(leftq2.getBounds())) {
+                    player.setX(72); player.setY(72);
+                }
+                if (player.getBounds().intersects(bottomq2.getBounds())) {
+                    player.setY(32);
+                    quad = 3;
+                }
+                if (player.getBounds().intersects(rightq2.getBounds())) {
+                    player.setBounds(new Rectangle (32, player.getY(), player.getWidth(), player.getHeight()));
+                    player.setX(32);
+                    quad = 1;
+                }
+                if (player.getBounds().intersects(topq2.getBounds())) {
+                    player.setX(72); player.setY(72);
+                }
+            }
+            if (quad == 1) {
+                if (player.getBounds().intersects(leftq1.getBounds())) {
+                    
+                    player.setX(1076);
+                    quad = 2;
+                }
+                if (player.getBounds().intersects(bottomq1.getBounds())) {
+                    player.setY(32);
+                    quad = 4;
+                }
+                if (player.getBounds().intersects(rightq1.getBounds())) {
+                    player.setX(1034); player.setY(72);
+                }
+                if (player.getBounds().intersects(topq1.getBounds())) {
+                    player.setX(1034); player.setY(72);
+                }
             }
         }
     }
