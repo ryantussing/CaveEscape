@@ -24,7 +24,7 @@ public class CaveEscape {
         World c = new World();
         j.add(c);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setSize(1180, 720);
+        j.setSize(1176, 719);
         j.setVisible(true);
         j.setLocationRelativeTo(null);
         j.addKeyListener(new KeyAdapter() {

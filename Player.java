@@ -34,7 +34,7 @@ public class Player {
         this.height = 56;
         this.color = Color.CYAN;
         this.SPEED = 10;
-        this.score = 8;
+        this.score = 0;
         this.deaths = 0;
         this.map = 1;
         this.key = false;
